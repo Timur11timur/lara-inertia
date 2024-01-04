@@ -43,3 +43,7 @@ Route::get('/settings', function () {
 Route::post('/logout', function () {
    dd('Logging the user out');
 });
+
+Route::post('/pass-data', function () {
+    dd(request('foo'));
+});

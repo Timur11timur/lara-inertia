@@ -7,6 +7,7 @@
       <li><Link href="/logout" method="post" class="text-blue-500 hover:underline">Log out</Link></li>
 <!--      a link can be opened with command click on a new tab, but button can't-->
       <li><Link href="/logout" method="post" as="button" class="text-blue-500 hover:underline">Log out</Link></li>
+      <li><Link href="/pass-data" method="post" :data="{ foo: 'bar' }" as="button" class="text-blue-500 hover:underline">Pass data</Link></li>
     </ul>
   </nav>
 </template>
