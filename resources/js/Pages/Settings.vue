@@ -6,8 +6,10 @@
 
 <script>
 import Nav from "../Shared/Nav.vue";
+import {Link} from "@inertiajs/vue3";
 
 export default {
-  components: { Nav },
+  components: { Nav, Link },
+  props: { time: String },
 };
 </script>

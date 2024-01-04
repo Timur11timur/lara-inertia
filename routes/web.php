@@ -35,5 +35,11 @@ Route::get('/users', function () {
 });
 
 Route::get('/settings', function () {
-    return Inertia::render('Settings');
+    return Inertia::render('Settings', [
+        'time' => now()->toTimeString(),
+    ]);
+});
+
+Route::post('/logout', function () {
+   dd('Logging the user out');
 });
