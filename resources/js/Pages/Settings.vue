@@ -20,14 +20,6 @@
 <!--};-->
 <!--</script>-->
 
-<script>
-import Layout from '../Shared/Layout.vue'
-
-export default {
-  layout: Layout,
-}
-</script>
-
 <script setup>
 import {Link} from "@inertiajs/vue3";
 
