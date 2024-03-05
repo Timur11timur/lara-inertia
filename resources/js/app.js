@@ -1,5 +1,6 @@
 import { createApp, h } from 'vue'
 import {createInertiaApp, Link} from '@inertiajs/vue3'
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import Layout from "./Shared/Layout.vue";
 
 createInertiaApp({
@@ -16,17 +17,28 @@ createInertiaApp({
     // Whether the NProgress spinner will be shown...
     showSpinner: false,
   },
-  resolve: name => {
-    const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
-
-    let page = pages[`./Pages/${name}.vue`].default;
-
-    // if (! page.layout) {
-    //   page.layout = Layout;
-    // }
-
-    page.layout ??= Layout;
-
+  // resolve: name => {
+  //   const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
+  //
+  //   let page = pages[`./Pages/${name}.vue`].default;
+  //
+  //   // if (! page.layout) {
+  //   //   page.layout = Layout;
+  //   // }
+  //
+  //   page.layout ??= Layout;
+  //
+  //   return page;
+  // },
+  resolve: async (name) => {
+    // Resolve the page component asynchronously
+    const page = await resolvePageComponent(
+      `./Pages/${name}.vue`,
+      import.meta.glob('./Pages/**/*.vue')
+    );
+    // Add the layout to the page component if there is no default layout set
+    page.default.layout ??= Layout;
+    // Return the page component
     return page;
   },
   setup({ el, App, props, plugin }) {
