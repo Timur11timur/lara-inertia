@@ -31,7 +31,9 @@ Route::get('/', function () {
 
 Route::get('/users', function () {
     sleep(2);
-    return Inertia::render('Users');
+    return Inertia::render('Users', [
+        'users' => \App\Models\User::select(['id', 'name'])->paginate(10)
+    ]);
 });
 
 Route::get('/settings', function () {

@@ -17,7 +17,7 @@
   </section>
 
   <section class="p-6">
-    <div class="m-width-3xl mx-auto">
+    <div class="max-w-3xl mx-auto">
       <slot />
     </div>
   </section>
@@ -25,10 +25,9 @@
 
 <script>
 import Nav from "./Nav.vue";
-import {Head} from "@inertiajs/vue3";
 
 export default {
-  components: { Nav, Head },
+  components: { Nav },
 
   computed: {
     username() {
