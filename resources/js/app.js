@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue'
-import {createInertiaApp, Link} from '@inertiajs/vue3'
+import {createInertiaApp, Link, Head} from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import Layout from "./Shared/Layout.vue";
 
@@ -45,6 +45,8 @@ createInertiaApp({
     createApp({ render: () => h(App, props) })
       .use(plugin)
       .component("GlobalLink", Link)
+      .component("Head", Head)
       .mount(el)
   },
+  title: title => 'My app - ' + title
 })
