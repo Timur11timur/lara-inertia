@@ -45,6 +45,8 @@
 import Pagination from "../../Shared/Pagination.vue";
 import {ref, watch} from "vue";
 import { router } from "@inertiajs/vue3";
+import throttle from "lodash/throttle";  //each 500
+// import debounce from "lodash/debounce"; //after stop typing and 500
 
 let props = defineProps({
   users: Object,
@@ -53,10 +55,10 @@ let props = defineProps({
 
 let search = ref(props.filters.search);
 
-watch(search, value => {
+watch(search, throttle(value => {
   router.get('/users', { search : value }, {
     preserveState: true, //to continue having text and cursor inside input
     replace: true //to avoid multiple records in a browser history
   });
-});
+}, 500));
 </script>
