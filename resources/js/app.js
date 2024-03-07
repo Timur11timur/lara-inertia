@@ -36,9 +36,17 @@ createInertiaApp({
       `./Pages/${name}.vue`,
       import.meta.glob('./Pages/**/*.vue')
     );
+
     // Add the layout to the page component if there is no default layout set
-    page.default.layout ??= Layout;
-    // Return the page component
+    if (page.default.layout === undefined) {
+      page.default.layout = Layout;
+    }
+
+    //Remove default layout if in component exists props layout
+    if (page.default?.props?.layout === null) {
+      page.default.layout = undefined;
+    }
+
     return page;
   },
   setup({ el, App, props, plugin }) {

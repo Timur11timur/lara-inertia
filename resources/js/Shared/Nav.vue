@@ -5,14 +5,14 @@
         <NavLink href="/" :active="$page.component === 'Home'">Home</NavLink>
       </li>
       <li>
-        <NavLink href="/users" :active="$page.component === 'Users'">Users</NavLink>
+        <NavLink href="/users" :active="['Users/Index', 'Users/Create'].includes($page.component)">Users</NavLink>
       </li>
       <li>
         <NavLink href="/settings" :active="$page.component === 'Settings'">Settings</NavLink>
       </li>
-      <li><Link href="/logout" method="post" class="text-blue-500 hover:underline">Log out link</Link></li>
+      <li><NavLink href="/logout" method="post">Log out link</NavLink></li>
 <!--      a link can be opened with command click on a new tab, but button can't-->
-      <li><Link href="/logout" method="post" as="button" class="text-blue-500 hover:underline">Log out button</Link></li>
+      <li><NavLink href="/logout" method="post" as="button" class="hover:underline">Log out button</NavLink></li>
       <li><Link href="/pass-data" method="post" :data="{ foo: 'bar' }" as="button" class="text-blue-500 hover:underline">Pass data</Link></li>
     </ul>
   </nav>
