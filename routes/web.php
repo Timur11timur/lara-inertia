@@ -29,25 +29,38 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users', function () {
 //    sleep(2);
         return Inertia::render('Users/Index', [
-            'users' => User::select(['id', 'name'])
+            'users' => User::select(['id', 'name', 'is_admin'])
                 ->when(Request::input('search'), function ($q, $search) {
                     $q->where('name', 'like', '%' . $search . '%');
                 })
+                ->orderBy('id', 'Desc')
                 ->paginate(10)
-                ->withQueryString(),
+                ->withQueryString()
+                ->through(fn($user) => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'is_admin' => $user->is_admin,
+                    'can' => [
+                        'edit' => auth()->user()->can('edit', $user)
+                        ],
+                ]),
             'filters' => Request::only(['search']),
+            'can' => [
+                'createUser' => auth()->user()->can('create', User::class),
+            ],
         ]);
     });
 
     Route::get('/users/create', function () {
         return Inertia::render('Users/Create');
-    });
+    })->can('create', User::class);
 
     Route::post('/users', function () {
         $attributes = Request::validate([
             'name' => 'required',
             'email' => 'required|email|unique:Users,email',
             'password' => 'required',
+            'is_admin' => 'required|boolean',
         ]);
 
         User::create($attributes);

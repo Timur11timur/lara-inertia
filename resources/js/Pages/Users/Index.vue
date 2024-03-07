@@ -4,7 +4,7 @@
     <div class="flex items-center">
       <h1 class="text-3xl">Users</h1>
 
-      <GlobalLink href="/users/create" class="text-blue-500 text-sm ml-3">New User</GlobalLink>
+      <GlobalLink v-if="can.createUser" href="/users/create" class="text-blue-500 text-sm ml-3 mt-2">New User</GlobalLink>
     </div>
 
 
@@ -27,7 +27,16 @@
                     </div>
                   </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div>
+                      <div class="text-sm font-medium text-gray-900">
+                        {{ user.is_admin ? 'Admin' : '' }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td v-if="user.can.edit" class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <GlobalLink :href="'/users/' + user.id + '/edit'" class="text-indigo-600 hover:text-indigo-900">Edit</GlobalLink>
                 </td>
               </tr>
@@ -51,6 +60,7 @@ import throttle from "lodash/throttle";  //each 500
 let props = defineProps({
   users: Object,
   filters: Object,
+  can: Object,
 });
 
 let search = ref(props.filters.search);

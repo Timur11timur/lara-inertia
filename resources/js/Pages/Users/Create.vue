@@ -31,6 +31,16 @@
         v-text="form.errors.password"
         class="text-red-500 text-xs mt-1"></div>
     </div>
+    <div class="mb-6 flex items-center">
+      <div class="flex items-center">
+        <input v-model="form.is_admin" class="border border-gray-400 p-2" type="checkbox" name="is_admin" id="is_admin" required>
+        <label class="block ml-2 uppercase font-bold text-xs text-gray-700" for="is_admin">Admin</label>
+      </div>
+      <div
+        v-if="form.errors.is_admin"
+        v-text="form.errors.is_admin"
+        class="text-red-500 text-xs mt-1"></div>
+    </div>
     <div class="mb-6">
       <button type="submit" class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500"
         :disabled="form.processing">
@@ -69,6 +79,7 @@ let form = useForm({
   name: '',
   email: '',
   password: '',
+  is_admin: false,
 });
 
 let submit = () => {
